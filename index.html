@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset='utf-8'>
+    <meta http-equiv="X-UA-Compatible" content="chrome=1">
+    <link href='https://fonts.googleapis.com/css?family=Chivo:900' rel='stylesheet' type='text/css'>
+    <link rel="stylesheet" type="text/css" href="stylesheets/stylesheet.css" media="screen">
+    <link rel="stylesheet" type="text/css" href="stylesheets/github-dark.css" media="screen">
+    <link rel="stylesheet" type="text/css" href="stylesheets/print.css" media="print">
+    <!--[if lt IE 9]>
+    <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <title>Launchpad by rynr</title>
+  </head>
+
+  <body>
+    <div id="container">
+      <div class="inner">
+
+        <header>
+          <h1>Launchpad</h1>
+          <h2>Library to access a Novation Launchpad in a linux/unix environment</h2>
+        </header>
+
+        <section id="downloads" class="clearfix">
+          <a href="https://github.com/rynr/launchpad/zipball/master" id="download-zip" class="button"><span>Download .zip</span></a>
+          <a href="https://github.com/rynr/launchpad/tarball/master" id="download-tar-gz" class="button"><span>Download .tar.gz</span></a>
+          <a href="https://github.com/rynr/launchpad" id="view-on-github" class="button"><span>View on GitHub</span></a>
+        </section>
+
+        <hr>
+
+        <section id="main_content">
+          <h1>
+<a id="launchpad" class="anchor" href="#launchpad" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>launchpad</h1>
+
+<p>This library can be used to access a <a href="http://uk.novationmusic.com/midi-controllers-digital-dj/launchpad">Novation Launchpad</a>
+from a linux/unix machine.</p>
+
+<p>To connect, a block-device is used.</p>
+
+<h2>
+<a id="usage" class="anchor" href="#usage" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>usage</h2>
+
+<p>You can directly use it from maven central:</p>
+
+<div class="highlight highlight-text-xml"><pre>&lt;<span class="pl-ent">dependency</span>&gt;
+  &lt;<span class="pl-ent">groupId</span>&gt;org.rjung.util&lt;/<span class="pl-ent">groupId</span>&gt;
+  &lt;<span class="pl-ent">artifactId</span>&gt;launchpad&lt;/<span class="pl-ent">artifactId</span>&gt;
+  &lt;<span class="pl-ent">version</span>&gt;0.4&lt;/<span class="pl-ent">version</span>&gt;
+&lt;/<span class="pl-ent">dependency</span>&gt;</pre></div>
+
+<p>To retrieve messages, implement a
+<a href="https://github.com/rynr/launchpad/blob/master/src/main/java/org/rjung/util/launchpad/LaunchpadHandler.java">LaunchpadHandler</a>
+and register it to the launchpad instance. The LaunchpadHandler will now be
+called always, when a Command is received.</p>
+
+<div class="highlight highlight-source-java"><pre>launchpad<span class="pl-k">.</span>addHandler(<span class="pl-k">new</span> <span class="pl-smi">LaunchpadHandler</span>() {
+    <span class="pl-k">public</span> <span class="pl-k">void</span> <span class="pl-en">recieve</span>(<span class="pl-smi">MidiCommand</span> <span class="pl-v">command</span>) {
+        <span class="pl-smi">System</span><span class="pl-k">.</span>out<span class="pl-k">.</span>println(command);
+    }
+});
+launchpad<span class="pl-k">.</span>start();</pre></div>
+
+<p>To send Commands, you can use the methods <code>off(x, y)</code> or <code>set(x, y, color)</code>.</p>
+
+<div class="highlight highlight-source-java"><pre>launchpad<span class="pl-k">.</span>off(<span class="pl-c1">1</span>, <span class="pl-c1">2</span>);
+launchpad<span class="pl-k">.</span>set(<span class="pl-c1">2</span>, <span class="pl-c1">3</span>, <span class="pl-smi">Color</span><span class="pl-c1"><span class="pl-k">.</span>RED</span>);</pre></div>
+
+<p>You can find a example receiving and sending data in
+<a href="https://github.com/rynr/launchpad/blob/master/src/test/java/org/rjung/util/launchpad/example/BounceToLaunchpadExample.java">BounceToLaunchpadExample.java</a>
+in the test-directory. I started some projects at <a href="https://github.com/rynr/jenkins-launchpad">https://github.com/rynr/jenkins-launchpad</a> and <a href="https://rynr.github.io/launch-tab">https://rynr.github.io/launch-tab</a>.</p>
+
+<p><a href="https://www.youtube.com/watch?v=9cYpqWWpjjY"><img src="https://img.youtube.com/vi/9cYpqWWpjjY/0.jpg" alt="This is what you could build"></a></p>
+
+<h2>
+<a id="info" class="anchor" href="#info" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Info</h2>
+
+<ul>
+<li><a href="https://rynr.github.io/launchpad/">Info</a></li>
+<li><a href="https://github.com/rynr/launchpad">Github</a></li>
+<li><a href="https://github.com/rynr/launchpad/issues">Bugs</a></li>
+<li><a href="https://sonarqube.com/dashboard/index?id=org.rjung.util%3Alaunchpad">Sonar</a></li>
+<li><a href="https://gitter.im/rynr/launchpad"><img src="https://badges.gitter.im/rynr/launchpad.svg" alt="Join the chat at https://gitter.im/rynr/launchpad"></a></li>
+<li><a href="https://travis-ci.org/rynr/launchpad"><img src="https://travis-ci.org/rynr/launchpad.svg?branch=master" alt="Build Status"></a></li>
+</ul>
+        </section>
+
+        <footer>
+          Launchpad is maintained by <a href="https://github.com/rynr">rynr</a><br>
+          This page was generated by <a href="https://pages.github.com">GitHub Pages</a>. Tactile theme by <a href="https://twitter.com/jasonlong">Jason Long</a>.
+        </footer>
+
+        
+      </div>
+    </div>
+  </body>
+</html>
