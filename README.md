@@ -10,7 +10,9 @@ launchpad.
 usage
 -----
 
+```java
     new Launchpad("/dev/midi");
+```
 
 Info
 ----
