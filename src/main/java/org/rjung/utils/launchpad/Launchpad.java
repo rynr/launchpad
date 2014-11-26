@@ -1,5 +1,6 @@
 package org.rjung.utils.launchpad;
 
+import org.rjung.utils.launchpad.midi.Command;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -15,7 +16,8 @@ public class Launchpad {
     private static final Logger LOG = LoggerFactory.getLogger(Launchpad.class);
 
     private RandomAccessFile device;
-    private Reader reader;
+
+    private Thread reader;
 
     /**
      * The communication with the device uses a character-device. Usually it's
@@ -26,15 +28,12 @@ public class Launchpad {
      */
     public Launchpad(File device) throws FileNotFoundException {
         this.device = new RandomAccessFile(device, FILE_ACCESS_MODE);
-        this.reader = new Reader(this.device);
+        this.reader = new Thread(new Reader(this.device));
+        reader.start();
     }
 
     public Launchpad(String device) throws FileNotFoundException {
         this(new File(device));
-    }
-
-    public void setColor(int x, int y, Color color) {
-        // TODO
     }
 
     class Reader implements Runnable {
@@ -45,31 +44,57 @@ public class Launchpad {
             this.device = device;
         }
 
+        // Simplest straight forward solution, while running read status-byte,
+        // decide the number of data-bytes, read that number of bytes, handle
+        // the result.
         public void run() {
-            byte[] dataGram = new byte[3];
             try {
-                running = true;
-
-                while (running) {
-                    byte[] command = readCommand();
-                    // TODO run handlers
+                while (true) {
+                    byte command = device.readByte();
+                    if (isStatusByte(command)) {
+                        handle(new Command(command, getDataForCommand(command)));
+                    } else {
+                        LOG.error("Received invalid data packet: "
+                                + String.format("%02x", command));
+                    }
                 }
             } catch (IOException e) {
                 LOG.error(e.getMessage(), e);
-            } finally {
-                running = false;
             }
         }
 
-        private byte[] readCommand() throws IOException {
-            // TODO
-            return null;
+        private byte[] getDataForCommand(byte command) throws IOException {
+            byte length = (byte) (isSysEx(command) ? device.readByte()
+                    : (isOneByteData(command) ? 0x01 : 0x02));
+            byte[] data = new byte[length];
+            for (int i = length; i > 0; i--) {
+                data[length - i] = device.readByte();
+            }
+            return data;
+        }
+
+        private void handle(Command command) {
+            LOG.debug("< " + command);
+            // TODO handle command
         }
 
         // TODO registration of handlers
 
+        private boolean isOneByteData(byte command) {
+            return command >= 0xc0 && command < 0xe0;
+        }
+
+        private boolean isSysEx(byte command) {
+            return command >= 0xf0;
+        }
+
+        private boolean isStatusByte(byte command) {
+            return command >= 0x80;
+        }
+
         public boolean isRunning() {
             return running;
         }
+
     }
 }
