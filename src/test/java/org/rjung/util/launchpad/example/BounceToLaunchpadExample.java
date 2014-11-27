@@ -1,11 +1,11 @@
-package org.rjung.utils.launchpad.example;
+package org.rjung.util.launchpad.example;
 
 import java.io.FileNotFoundException;
 import java.io.IOException;
 
-import org.rjung.utils.launchpad.Launchpad;
-import org.rjung.utils.launchpad.LaunchpadHandler;
-import org.rjung.utils.launchpad.MidiCommand;
+import org.rjung.util.launchpad.Launchpad;
+import org.rjung.util.launchpad.LaunchpadHandler;
+import org.rjung.util.launchpad.MidiCommand;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 

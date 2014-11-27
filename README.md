@@ -11,11 +11,11 @@ usage
 -----
 
 You can find a example receiving and sending data in
-[BounceToLaunchpadExample.java](https://github.com/rynr/launchpad/blob/master/src/test/java/org/rjung/utils/launchpad/example/BounceToLaunchpadExample.java)
+[BounceToLaunchpadExample.java](https://github.com/rynr/launchpad/blob/master/src/test/java/org/rjung/util/launchpad/example/BounceToLaunchpadExample.java)
 in the test-directory.
 
 To retrieve messages, implement a
-[LaunchpadHandler](https://github.com/rynr/launchpad/blob/master/src/main/java/org/rjung/utils/launchpad/LaunchpadHandler.java)
+[LaunchpadHandler](https://github.com/rynr/launchpad/blob/master/src/main/java/org/rjung/util/launchpad/LaunchpadHandler.java)
 and register it to the launchpad instance. The LaunchpadHandler will now be
 called always, when a Command is received.
 

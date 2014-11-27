@@ -1,4 +1,4 @@
-package org.rjung.utils.launchpad;
+package org.rjung.util.launchpad;
 
 
 public interface LaunchpadHandler {

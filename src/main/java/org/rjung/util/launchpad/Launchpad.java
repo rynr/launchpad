@@ -1,8 +1,8 @@
-package org.rjung.utils.launchpad;
+package org.rjung.util.launchpad;
 
-import org.rjung.utils.launchpad.midi.Channel;
-import org.rjung.utils.launchpad.midi.Color;
-import org.rjung.utils.launchpad.midi.Command;
+import org.rjung.util.launchpad.midi.Channel;
+import org.rjung.util.launchpad.midi.Color;
+import org.rjung.util.launchpad.midi.Command;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -30,7 +30,10 @@ public class Launchpad {
 	 * one of `/proc/midi*`.
 	 * 
 	 * @param device
+	 *            File pointing to the blockdevice of a midi controller.
 	 * @throws FileNotFoundException
+	 *             This exception is raised, when the device can not be found or
+	 *             accessed
 	 */
 	public Launchpad(File device) throws FileNotFoundException {
 		LOG.debug("Starting Launchpad with " + device);

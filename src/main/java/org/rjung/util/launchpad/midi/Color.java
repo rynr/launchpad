@@ -1,4 +1,4 @@
-package org.rjung.utils.launchpad.midi;
+package org.rjung.util.launchpad.midi;
 
 public enum Color {
     OFF(0x0C), RED(0x0F), RED_LOW(0x0D), AMBER(0x3F), AMBER_LOW(0x1D), YELLOW(

@@ -1,9 +1,9 @@
-package org.rjung.utils.launchpad;
+package org.rjung.util.launchpad;
 
 import java.util.Arrays;
 
-import org.rjung.utils.launchpad.midi.Channel;
-import org.rjung.utils.launchpad.midi.Command;
+import org.rjung.util.launchpad.midi.Channel;
+import org.rjung.util.launchpad.midi.Command;
 
 public class MidiCommand {
 

@@ -1,4 +1,4 @@
-package org.rjung.utils.launchpad.midi;
+package org.rjung.util.launchpad.midi;
 
 public enum Command {
 	NOTE_OFF((byte) 0x80), NOTE_ON((byte) 0x90), AFTERTOUCH((byte) 0xa0), CONTROL_CHANGE(

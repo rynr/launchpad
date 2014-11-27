@@ -1,4 +1,4 @@
-package org.rjung.utils.launchpad.midi;
+package org.rjung.util.launchpad.midi;
 
 public enum Channel {
 
