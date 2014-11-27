@@ -10,8 +10,28 @@ launchpad.
 usage
 -----
 
+You can find a example receiving and sending data in
+[BounceToLaunchpadExample.java](https://github.com/rynr/launchpad/blob/master/src/test/java/org/rjung/utils/launchpad/example/BounceToLaunchpadExample.java)
+in the test-directory.
+
+To retrieve messages, implement a
+[LaunchpadHandler](https://github.com/rynr/launchpad/blob/master/src/main/java/org/rjung/utils/launchpad/LaunchpadHandler.java)
+and register it to the launchpad instance. The LaunchpadHandler will now be
+called always, when a Command is received.
+
 ```java
-    new Launchpad("/dev/midi");
+    launchpad.addHandler(new LaunchpadHandler() {
+        public void recieve(MidiCommand command) {
+            System.out.println(command);
+        }
+    });
+```
+
+To send Commands, you can use the methods `off(x, y)` or `set(x, y, color)`.
+
+```java
+    launchpad.off(1, 2);
+    launchpad.set(2, 3, Color.RED);
 ```
 
 Info
