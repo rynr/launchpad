@@ -73,7 +73,7 @@ public class MidiCommand {
         }
 
         public Builder setDataBytes(byte[] databytes) {
-            this.databytes = databytes;
+            this.databytes = databytes.clone();
             return this;
         }
 
