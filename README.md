@@ -10,6 +10,15 @@ launchpad.
 usage
 -----
 
+You can directly use it from maven central:
+```xml
+<dependency>
+  <groupId>org.rjung.util</groupId>
+  <artifactId>launchpad</artifactId>
+  <version>0.1</version>
+</dependency>
+```
+
 You can find a example receiving and sending data in
 [BounceToLaunchpadExample.java](https://github.com/rynr/launchpad/blob/master/src/test/java/org/rjung/util/launchpad/example/BounceToLaunchpadExample.java)
 in the test-directory.
@@ -20,18 +29,18 @@ and register it to the launchpad instance. The LaunchpadHandler will now be
 called always, when a Command is received.
 
 ```java
-    launchpad.addHandler(new LaunchpadHandler() {
-        public void recieve(MidiCommand command) {
-            System.out.println(command);
-        }
-    });
+launchpad.addHandler(new LaunchpadHandler() {
+    public void recieve(MidiCommand command) {
+        System.out.println(command);
+    }
+});
 ```
 
 To send Commands, you can use the methods `off(x, y)` or `set(x, y, color)`.
 
 ```java
-    launchpad.off(1, 2);
-    launchpad.set(2, 3, Color.RED);
+launchpad.off(1, 2);
+launchpad.set(2, 3, Color.RED);
 ```
 
 Info
