@@ -69,7 +69,7 @@ public class MidiCommand {
         private byte[] databytes;
 
         public Builder(Command command, Channel channel) {
-            this.statusbyte = (byte) (command.getByte() & channel.getByte());
+            this.statusbyte = (byte) (command.getByte() ^ channel.getByte());
         }
 
         public Builder setDataBytes(byte[] databytes) {
