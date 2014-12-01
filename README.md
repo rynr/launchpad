@@ -43,6 +43,8 @@ launchpad.off(1, 2);
 launchpad.set(2, 3, Color.RED);
 ```
 
+[![Example application at](http://img.youtube.com/vi/9cYpqWWpjjY/0.jpg)](http://www.youtube.com/watch?v=9cYpqWWpjjY)
+
 Info
 ----
 
