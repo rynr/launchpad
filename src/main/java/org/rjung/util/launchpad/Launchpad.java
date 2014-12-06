@@ -39,11 +39,22 @@ public class Launchpad {
         this.device = new RandomAccessFile(device, FILE_ACCESS_MODE);
         this.reader = new MidiReader(this.device);
         this.thread = new Thread(reader);
-        thread.start();
     }
 
     public Launchpad(String device) throws FileNotFoundException {
         this(new File(device));
+    }
+
+    public synchronized void start() {
+        thread.start();
+    }
+
+    public boolean isAlive() {
+        return thread.isAlive();
+    }
+
+    public boolean isInterrupted() {
+        return thread.isInterrupted();
     }
 
     public void addHandler(LaunchpadHandler handler) {
