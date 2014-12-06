@@ -3,7 +3,7 @@
 
 	<groupId>org.rjung.util</groupId>
 	<artifactId>launchpad</artifactId>
-	<version>0.3-SNAPSHOT</version>
+	<version>0.3</version>
 	<packaging>jar</packaging>
 
 	<name>launchpad</name>
