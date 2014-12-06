@@ -14,7 +14,7 @@ You can directly use it from maven central:
 <dependency>
   <groupId>org.rjung.util</groupId>
   <artifactId>launchpad</artifactId>
-  <version>0.2</version>
+  <version>0.3</version>
 </dependency>
 ```
 
