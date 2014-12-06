@@ -2,10 +2,9 @@ launchpad
 =========
 
 This library can be used to access a [Novation Launchpad](http://uk.novationmusic.com/midi-controllers-digital-dj/launchpad)
-from a unix machine. To connect, a block-device is used.
+from a linux/unix machine.
 
-Currently the library cannot be used, it will only show the data received by the
-launchpad.
+To connect, a block-device is used.
 
 usage
 -----
@@ -21,7 +20,7 @@ You can directly use it from maven central:
 
 You can find a example receiving and sending data in
 [BounceToLaunchpadExample.java](https://github.com/rynr/launchpad/blob/master/src/test/java/org/rjung/util/launchpad/example/BounceToLaunchpadExample.java)
-in the test-directory.
+in the test-directory. There's another project at https://github.com/rynr/jenkins-launchpad.
 
 To retrieve messages, implement a
 [LaunchpadHandler](https://github.com/rynr/launchpad/blob/master/src/main/java/org/rjung/util/launchpad/LaunchpadHandler.java)
@@ -34,6 +33,7 @@ launchpad.addHandler(new LaunchpadHandler() {
         System.out.println(command);
     }
 });
+launchpad.start();
 ```
 
 To send Commands, you can use the methods `off(x, y)` or `set(x, y, color)`.
