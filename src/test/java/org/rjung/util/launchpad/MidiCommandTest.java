@@ -46,4 +46,20 @@ public class MidiCommandTest {
                         .setDataBytes(new byte[] { (byte) 0xab })
                         .toMidiCommand().getData()));
     }
+
+    @Test
+    public void testMidiCommandIsExtractedCorrectly() {
+        assertEquals(Command.NOTE_ON, new MidiCommand.Builder(Command.NOTE_ON,
+                Channel.C10).toMidiCommand().getCommand());
+        assertEquals(Command.SYS_EX, new MidiCommand.Builder(Command.SYS_EX,
+                Channel.C5).toMidiCommand().getCommand());
+    }
+
+    @Test
+    public void testMidiChannelIsExtractedCorrectly() {
+        assertEquals(Channel.C10, new MidiCommand.Builder(Command.NOTE_ON,
+                Channel.C10).toMidiCommand().getChannel());
+        assertEquals(Channel.C5, new MidiCommand.Builder(Command.SYS_EX,
+                Channel.C5).toMidiCommand().getChannel());
+    }
 }

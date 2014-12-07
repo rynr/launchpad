@@ -83,7 +83,8 @@ public class MidiCommand {
         }
 
         public MidiCommand toMidiCommand() {
-            return new MidiCommand(statusbyte, databytes);
+            return new MidiCommand(statusbyte, databytes == null ? new byte[0]
+                    : databytes);
         }
     }
 }
