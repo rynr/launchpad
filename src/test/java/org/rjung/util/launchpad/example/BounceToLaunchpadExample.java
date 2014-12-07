@@ -40,6 +40,7 @@ public class BounceToLaunchpadExample implements Runnable {
         try {
             Launchpad launchpad = new Launchpad(MIDI_DEVICE);
             launchpad.addHandler(new BounceHandler(launchpad));
+            launchpad.start();
         } catch (FileNotFoundException e) {
             LOG.log(Level.SEVERE, e.getMessage(), e);
         }

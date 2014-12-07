@@ -32,7 +32,7 @@ public class MidiCommand {
     }
 
     public String toString() {
-        StringBuffer result = new StringBuffer();
+        StringBuilder result = new StringBuilder();
         result.append("[MIDI ");
         result.append(String.format("%02x", command));
         result.append("(" + getCommand() + "/" + getChannel() + ")");
@@ -55,17 +55,22 @@ public class MidiCommand {
 
     @Override
     public boolean equals(Object obj) {
-        if (this == obj)
+        if (this == obj) {
             return true;
-        if (obj == null)
+        }
+        if (obj == null) {
             return false;
-        if (getClass() != obj.getClass())
+        }
+        if (getClass() != obj.getClass()) {
             return false;
+        }
         MidiCommand other = (MidiCommand) obj;
-        if (command != other.command)
+        if (command != other.command) {
             return false;
-        if (!Arrays.equals(data, other.data))
+        }
+        if (!Arrays.equals(data, other.data)) {
             return false;
+        }
         return true;
     }
 
