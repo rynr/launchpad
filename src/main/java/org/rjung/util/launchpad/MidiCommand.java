@@ -7,30 +7,35 @@ import java.util.Arrays;
 
 public class MidiCommand {
 
-    private byte command;
-    private byte[] data;
+    private final byte command;
+    private final byte[] data;
 
     public MidiCommand(byte command, byte[] data) {
         this.command = command;
         this.data = data.clone();
     }
 
-    public byte getCommand() {
-        return command;
+    public byte getCommandByte() {
+        return this.command;
+    }
+
+    public Command getCommand() {
+        return Command.getCommand((byte) (command & 0xf0));
+    }
+
+    public Channel getChannel() {
+        return Channel.getChannel((byte) (command & 0x0f));
     }
 
     public byte[] getData() {
         return data.clone();
     }
 
-    public byte getChannel() {
-        return (byte) (command & 0x0f);
-    }
-
     public String toString() {
         StringBuffer result = new StringBuffer();
         result.append("[MIDI ");
         result.append(String.format("%02x", command));
+        result.append("(" + getCommand() + "/" + getChannel() + ")");
         for (int i = 0; i < data.length; i++) {
             result.append(", ");
             result.append(String.format("%02x", data[i]));

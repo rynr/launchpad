@@ -1,22 +1,18 @@
 package org.rjung.util.launchpad;
 
-import org.rjung.util.launchpad.midi.Channel;
-import org.rjung.util.launchpad.midi.Color;
-import org.rjung.util.launchpad.midi.Command;
-import org.rjung.util.launchpad.midi.MidiReader;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.RandomAccessFile;
 
+import org.rjung.util.launchpad.midi.Channel;
+import org.rjung.util.launchpad.midi.Color;
+import org.rjung.util.launchpad.midi.Command;
+import org.rjung.util.launchpad.midi.MidiReader;
+
 public class Launchpad {
 
     private static final String FILE_ACCESS_MODE = "rw";
-
-    private static final Logger LOG = LoggerFactory.getLogger(Launchpad.class);
 
     private RandomAccessFile device;
 
@@ -35,7 +31,6 @@ public class Launchpad {
      *             accessed
      */
     public Launchpad(File device) throws FileNotFoundException {
-        LOG.debug("Starting Launchpad with " + device);
         this.device = new RandomAccessFile(device, FILE_ACCESS_MODE);
         this.reader = new MidiReader(this.device);
         this.thread = new Thread(reader);
@@ -62,8 +57,7 @@ public class Launchpad {
     }
 
     public void send(MidiCommand command) throws IOException {
-        LOG.debug("> " + command);
-        device.writeByte(command.getCommand());
+        device.writeByte(command.getCommandByte());
         device.write(command.getData());
     }
 

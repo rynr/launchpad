@@ -1,22 +1,22 @@
 package org.rjung.util.launchpad.midi;
 
-import org.rjung.util.launchpad.LaunchpadHandler;
-import org.rjung.util.launchpad.MidiCommand;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
 import java.io.IOException;
 import java.io.RandomAccessFile;
 import java.util.HashSet;
 import java.util.Set;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+
+import org.rjung.util.launchpad.LaunchpadHandler;
+import org.rjung.util.launchpad.MidiCommand;
 
 public class MidiReader implements Runnable {
-    private static final Logger LOG = LoggerFactory.getLogger(MidiReader.class);
+    private static final Logger LOG = Logger.getLogger(MidiReader.class
+            .getName());
     private RandomAccessFile device;
     private Set<LaunchpadHandler> handlers;
 
     public MidiReader(RandomAccessFile device) {
-        LOG.debug("Reader starting");
         this.handlers = new HashSet<LaunchpadHandler>();
         this.device = device;
     }
@@ -35,18 +35,15 @@ public class MidiReader implements Runnable {
     public void run() {
         try {
             while (true) {
-                LOG.debug("Trying to read");
                 byte command = device.readByte();
-                LOG.debug("got: " + command);
                 if (isStatusByte(command)) {
                     handle(new MidiCommand(command, getDataForCommand(command)));
                 } else {
-                    LOG.error("Received invalid data packet: "
-                            + String.format("%02x", command));
+                    LOG.log(Level.WARNING, "Received non command Midi-signal");
                 }
             }
         } catch (IOException e) {
-            LOG.error(e.getMessage(), e);
+            LOG.log(Level.SEVERE, e.getMessage(), e);
         }
     }
 
@@ -61,7 +58,6 @@ public class MidiReader implements Runnable {
     }
 
     private void handle(MidiCommand command) {
-        LOG.debug("< " + command);
         for (LaunchpadHandler midiHandler : handlers) {
             midiHandler.recieve(command);
         }
