@@ -7,19 +7,19 @@ public enum Channel {
             (byte) 10), C12((byte) 11), C13((byte) 12), C14((byte) 13), C15(
             (byte) 14), C16((byte) 15);
 
-    private byte channel;
+    private byte channelByte;
 
     private Channel(byte channel) {
-        this.channel = channel;
+        this.channelByte = channel;
     }
 
     public byte getByte() {
-        return channel;
+        return channelByte;
     }
 
     public static Channel getChannel(byte b) {
         for (Channel entry : values()) {
-            if (entry.channel == b) {
+            if (entry.channelByte == b) {
                 return entry;
             }
         }

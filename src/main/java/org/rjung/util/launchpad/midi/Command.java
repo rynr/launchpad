@@ -5,19 +5,19 @@ public enum Command {
             (byte) 0xb0), PROGRAM_CHANGE((byte) 0xc0), CHANNEL_AFTERTOUCH(
             (byte) 0xd0), PITCH_BEND((byte) 0xe0), SYS_EX((byte) 0xf0);
 
-    private byte command;
+    private byte commandByte;
 
     private Command(byte command) {
-        this.command = command;
+        this.commandByte = command;
     }
 
     public byte getByte() {
-        return command;
+        return commandByte;
     }
 
     public static Command getCommand(byte b) {
         for (Command entry : values()) {
-            if (entry.command == b) {
+            if (entry.commandByte == b) {
                 return entry;
             }
         }

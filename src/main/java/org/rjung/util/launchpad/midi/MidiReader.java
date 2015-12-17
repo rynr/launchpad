@@ -32,6 +32,7 @@ public class MidiReader implements Runnable {
     // Simplest straight forward solution, while running read status-byte,
     // decide the number of data-bytes, read that number of bytes, handle
     // the result.
+    @Override
     public void run() {
         try {
             while (true) {

@@ -4,6 +4,7 @@ import org.rjung.util.launchpad.midi.Channel;
 import org.rjung.util.launchpad.midi.Command;
 
 import java.util.Arrays;
+import java.util.Objects;
 
 public class MidiCommand {
 
@@ -31,6 +32,7 @@ public class MidiCommand {
         return data.clone();
     }
 
+    @Override
     public String toString() {
         StringBuilder result = new StringBuilder();
         result.append("[MIDI ");
@@ -65,13 +67,8 @@ public class MidiCommand {
             return false;
         }
         MidiCommand other = (MidiCommand) obj;
-        if (command != other.command) {
-            return false;
-        }
-        if (!Arrays.equals(data, other.data)) {
-            return false;
-        }
-        return true;
+        return Objects.equals(this.command, other.command)
+                && Arrays.equals(this.data, other.data);
     }
 
     public static class Builder {
