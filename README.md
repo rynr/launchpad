@@ -1,6 +1,8 @@
 launchpad
 =========
 
+[![Join the chat at https://gitter.im/rynr/launchpad](https://badges.gitter.im/rynr/launchpad.svg)](https://gitter.im/rynr/launchpad?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
+
 This library can be used to access a [Novation Launchpad](http://uk.novationmusic.com/midi-controllers-digital-dj/launchpad)
 from a linux/unix machine.
 
