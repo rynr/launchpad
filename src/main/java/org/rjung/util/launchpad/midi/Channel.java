@@ -1,5 +1,10 @@
 package org.rjung.util.launchpad.midi;
 
+/**
+ * Midi (Music Instrument Digital Interface) toes define 16 different
+ * {@link Channel}s that can be used. to send music informations. This
+ * represents the 16 {@link Channel}s from {@link #C1} to {@link #C16}.
+ */
 public enum Channel {
 
     C1((byte) 0), C2((byte) 1), C3((byte) 2), C4((byte) 3), C5((byte) 4), C6(
@@ -9,17 +14,29 @@ public enum Channel {
 
     private byte channelByte;
 
-    private Channel(byte channel) {
+    private Channel(final byte channel) {
         this.channelByte = channel;
     }
 
+    /**
+     * Recieve the byte representation of the {@link Channel}.
+     *
+     * @return The byte representation of the {@link Channel}.
+     */
     public byte getByte() {
         return channelByte;
     }
 
-    public static Channel getChannel(byte b) {
+    /**
+     * Retrieve the {@link Channel} of the channel-bytes.
+     *
+     * @param channel
+     *            The {@link Channel}-byte value.
+     * @return The {@link Channel} representing the {@link Channel}-byte value.
+     */
+    public static Channel getChannel(final byte channel) {
         for (Channel entry : values()) {
-            if (entry.channelByte == b) {
+            if (entry.channelByte == channel) {
                 return entry;
             }
         }
