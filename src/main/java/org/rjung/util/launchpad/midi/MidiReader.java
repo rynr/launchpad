@@ -28,7 +28,7 @@ public class MidiReader implements Runnable {
      *            {@link RandomAccessFile} to the midi-device of the Launchpad.
      */
     public MidiReader(final RandomAccessFile device) {
-        this.handlers = new HashSet<LaunchpadHandler>();
+        this.handlers = new HashSet<>();
         this.device = device;
     }
 
@@ -79,8 +79,8 @@ public class MidiReader implements Runnable {
     }
 
     private byte[] getDataForCommand(final byte command) throws IOException {
-        byte length = (byte) (isSysEx(command) ? device.readByte()
-                : (isOneByteData(command) ? 0x01 : 0x02));
+        byte length = isSysEx(command) ? device.readByte()
+                : (byte) (isOneByteData(command) ? 0x01 : 0x02);
         byte[] data = new byte[length];
         for (int i = length; i > 0; i--) {
             data[length - i] = device.readByte();

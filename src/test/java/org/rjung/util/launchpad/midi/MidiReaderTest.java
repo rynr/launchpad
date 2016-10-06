@@ -36,7 +36,7 @@ public class MidiReaderTest {
                 .thenReturn(0).thenReturn(0);
         midiReader.addHandler(handler);
         thread.start();
-        Thread.sleep(10);
+        Thread.sleep(5);
         verify(handler).recieve(
                 new MidiCommand.Builder(Command.NOTE_ON, Channel.C1)
                         .setDataBytes(new byte[] { 0, 0 }).toMidiCommand());
@@ -50,7 +50,7 @@ public class MidiReaderTest {
                 .thenReturn(4);
         midiReader.addHandler(handler);
         thread.start();
-        Thread.sleep(10);
+        Thread.sleep(5);
         verify(handler).recieve(
                 new MidiCommand.Builder(Command.PROGRAM_CHANGE, Channel.C1)
                         .setDataBytes(new byte[] { 4 }).toMidiCommand());
@@ -64,7 +64,7 @@ public class MidiReaderTest {
                 .thenReturn(4);
         midiReader.addHandler(handler);
         thread.start();
-        Thread.sleep(10);
+        Thread.sleep(5);
         verify(handler).recieve(
                 new MidiCommand.Builder(Command.SYS_EX, Channel.C1)
                         .setDataBytes(new byte[] { 1, 2, 3, 4 })
