@@ -27,8 +27,10 @@ public class BounceToLaunchpadExample implements Runnable {
             this.launchpad = launchpad;
         }
 
+        @Override
         public void recieve(MidiCommand command) {
             try {
+                LOG.log(Level.INFO, command.toString());
                 launchpad.send(command);
             } catch (IOException e) {
                 LOG.log(Level.SEVERE, e.getMessage(), e);
@@ -36,6 +38,7 @@ public class BounceToLaunchpadExample implements Runnable {
         }
     }
 
+    @Override
     public void run() {
         try {
             Launchpad launchpad = new Launchpad(MIDI_DEVICE);

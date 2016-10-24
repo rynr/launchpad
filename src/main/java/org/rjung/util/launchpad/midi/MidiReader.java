@@ -1,5 +1,6 @@
 package org.rjung.util.launchpad.midi;
 
+import java.io.Closeable;
 import java.io.IOException;
 import java.io.RandomAccessFile;
 import java.util.HashSet;
@@ -14,11 +15,12 @@ import org.rjung.util.launchpad.MidiCommand;
  * The {@link MidiReader} listens to all events of the Launchpad and sends the
  * information to all registered {@link LaunchpadHandler}s.
  */
-public class MidiReader implements Runnable {
+public class MidiReader implements Runnable, Closeable {
     private static final Logger LOG = Logger.getLogger(MidiReader.class
             .getName());
     private RandomAccessFile device;
     private Set<LaunchpadHandler> handlers;
+    private boolean running;
 
     /**
      * Create a {@link MidiReader} with the {@link RandomAccessFile} to the
@@ -65,7 +67,8 @@ public class MidiReader implements Runnable {
     @Override
     public void run() {
         try {
-            while (true) {
+            this.running = true;
+            while (running) {
                 byte command = device.readByte();
                 if (isStatusByte(command)) {
                     handle(new MidiCommand(command, getDataForCommand(command)));
@@ -74,6 +77,7 @@ public class MidiReader implements Runnable {
                 }
             }
         } catch (IOException e) {
+            this.running = false;
             LOG.log(Level.SEVERE, e.getMessage(), e);
         }
     }
@@ -104,6 +108,12 @@ public class MidiReader implements Runnable {
 
     private boolean isStatusByte(final byte command) {
         return command >= (byte) 0x80;
+    }
+
+    @Override
+    public void close() throws IOException {
+        this.running = false;
+        this.device.close();
     }
 
 }
