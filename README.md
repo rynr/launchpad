@@ -51,6 +51,7 @@ Info
  - [Info](https://rynr.github.io/launchpad/)
  - [Github](https://github.com/rynr/launchpad)
  - [Bugs](https://github.com/rynr/launchpad/issues)
+ - [Sonar](https://sonarqube.com/dashboard/index?id=org.rjung.util%3Alaunchpad)
  - [![Join the chat at https://gitter.im/rynr/launchpad](https://badges.gitter.im/rynr/launchpad.svg)](https://gitter.im/rynr/launchpad)
  - [![Build Status](https://travis-ci.org/rynr/launchpad.svg?branch=master)](https://travis-ci.org/rynr/launchpad)
 
