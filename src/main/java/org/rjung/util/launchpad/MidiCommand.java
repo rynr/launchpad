@@ -1,10 +1,10 @@
 package org.rjung.util.launchpad;
 
-import org.rjung.util.launchpad.midi.Channel;
-import org.rjung.util.launchpad.midi.Command;
-
 import java.util.Arrays;
 import java.util.Objects;
+
+import org.rjung.util.launchpad.midi.Channel;
+import org.rjung.util.launchpad.midi.Command;
 
 /**
  * Abstraction of commands that can be sent to a Midi-device, or be received by
@@ -75,9 +75,12 @@ public class MidiCommand {
     @Override
     public String toString() {
         StringBuilder result = new StringBuilder();
-        result.append("[MIDI ");
+        result.append("MIDI[");
         result.append(String.format("%02x", command));
-        result.append("(" + getCommand() + "/" + getChannel() + ")");
+        result.append("/");
+        result.append(getCommand());
+        result.append("/");
+        result.append(getChannel());
         for (int i = 0; i < data.length; i++) {
             result.append(", ");
             result.append(String.format("%02x", data[i]));
