@@ -8,30 +8,30 @@ package org.rjung.util.launchpad;
  * The colors are a combination of 4 different levels of red and green. They mix up for amber. So
  * these colors are available:
  *
- * <table>
+ * <table summary="Overview of all Colors available">
  * <tr>
- * <td bgcolor="#000">R0G0 / BLANK</td>
- * <td bgcolor="#500">R1G0</td>
- * <td bgcolor="#a00">R2G0</td>
- * <td bgcolor="#f00">R3G0 / RED</td>
+ * <td style="background-color:#000">R0G0 / BLANK</td>
+ * <td style="background-color:#500">R1G0</td>
+ * <td style="background-color:#a00">R2G0</td>
+ * <td style="background-color:#f00">R3G0 / RED</td>
  * </tr>
  * <tr>
- * <td bgcolor="#050">R0G1</td>
- * <td bgcolor="#550">R1G1</td>
- * <td bgcolor="#a50">R2G1</td>
- * <td bgcolor="#f50">R3G1</td>
+ * <td style="background-color:#050">R0G1</td>
+ * <td style="background-color:#550">R1G1</td>
+ * <td style="background-color:#a50">R2G1</td>
+ * <td style="background-color:#f50">R3G1</td>
  * </tr>
  * <tr>
- * <td bgcolor="#0a0">R0G2</td>
- * <td bgcolor="#5a0">R1G2</td>
- * <td bgcolor="#aa0">R2G2</td>
- * <td bgcolor="#fa0">R3G2</td>
+ * <td style="background-color:#0a0">R0G2</td>
+ * <td style="background-color:#5a0">R1G2</td>
+ * <td style="background-color:#aa0">R2G2</td>
+ * <td style="background-color:#fa0">R3G2</td>
  * </tr>
  * <tr>
- * <td bgcolor="#0f0">R0G3 / GREEN</td>
- * <td bgcolor="#5f0">R1G3</td>
- * <td bgcolor="#af0">R2G3</td>
- * <td bgcolor="#ff0">R3G3 / AMBER</td>
+ * <td style="background-color:#0f0">R0G3 / GREEN</td>
+ * <td style="background-color:#5f0">R1G3</td>
+ * <td style="background-color:#af0">R2G3</td>
+ * <td style="background-color:#ff0">R3G3 / AMBER</td>
  * </tr>
  * </table>
  *

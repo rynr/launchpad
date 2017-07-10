@@ -11,13 +11,11 @@ import javax.sound.midi.ShortMessage;
 import javax.sound.midi.Transmitter;
 
 /**
- * The {@link Launchpad} provides access to a Launchpad via the midi-device. To create an instance
- * provide the device-file as a {@link File} or {@link String} with the path. As this requires a
- * read-thread, you need to {@link #start()} the {@link Launchpad} after you created it.
+ * The {@link Launchpad} provides access to a Launchpad via the midi-device.
  *
  * To get a notication when a button is pressed on the Launchpad you can add a
- * {@link LaunchpadHandler} with {@link #addHandler(LaunchpadHandler)} (see {@link LaunchpadHandler}
- * on more information on building a {@link LaunchpadHandler}.
+ * {@link LaunchpadReceiver} with the constructors {@link Launchpad#Launchpad(LaunchpadReceiver)}
+ * and {@link Launchpad#Launchpad(Channel, LaunchpadReceiver)}.
  */
 public class Launchpad implements Receiver {
 
