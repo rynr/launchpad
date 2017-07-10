@@ -1,14 +1,14 @@
 package org.rjung.util.launchpad;
 
 import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.IOException;
-import java.io.RandomAccessFile;
 
-import org.rjung.util.launchpad.midi.Channel;
-import org.rjung.util.launchpad.midi.Color;
-import org.rjung.util.launchpad.midi.Command;
-import org.rjung.util.launchpad.midi.MidiReader;
+import javax.sound.midi.InvalidMidiDataException;
+import javax.sound.midi.MidiMessage;
+import javax.sound.midi.MidiSystem;
+import javax.sound.midi.MidiUnavailableException;
+import javax.sound.midi.Receiver;
+import javax.sound.midi.ShortMessage;
+import javax.sound.midi.Transmitter;
 
 /**
  * The {@link Launchpad} provides access to a Launchpad via the midi-device. To create an instance
@@ -19,114 +19,53 @@ import org.rjung.util.launchpad.midi.MidiReader;
  * {@link LaunchpadHandler} with {@link #addHandler(LaunchpadHandler)} (see {@link LaunchpadHandler}
  * on more information on building a {@link LaunchpadHandler}.
  */
-public class Launchpad {
+public class Launchpad implements Receiver {
 
-  private static final String FILE_ACCESS_MODE = "rw";
+  private final Channel channel;
+  private final Transmitter transmitter;
+  private final Receiver receiver;
+  private final LaunchpadReceiver launchpadReceiver;
 
-  private RandomAccessFile device;
-
-  private Thread thread;
-
-  private MidiReader reader;
-
-  /**
-   * The communication with the device uses a character-device. Usually it's one of `/proc/midi*`.
-   *
-   * @param device File pointing to the blockdevice of a midi controller.
-   * @throws FileNotFoundException This exception is raised, when the device can not be found or
-   *         accessed
-   */
-  public Launchpad(final File device) throws FileNotFoundException {
-    this.device = new RandomAccessFile(device, FILE_ACCESS_MODE);
-    this.reader = new MidiReader(this.device);
-    this.thread = new Thread(reader);
+  public Launchpad() throws MidiUnavailableException {
+    this(Channel.C1);
   }
 
-  /**
-   * The communication with the device uses a character-device. Usually it's one of `/proc/midi*`.
-   *
-   * @param device String of the path pointing to the blockdevice of a midi controller.
-   * @throws FileNotFoundException This exception is raised, when the device can not be found or
-   *         accessed
-   */
-  public Launchpad(final String device) throws FileNotFoundException {
-    this(new File(device));
+  public Launchpad(Channel channel) throws MidiUnavailableException {
+    this(channel, null);
   }
 
-  /**
-   * Start the asynchronous {@link Thread} to read events of the Launchpad.
-   */
-  public synchronized void start() {
-    thread.start();
+  public Launchpad(LaunchpadReceiver launchpadReceiver) throws MidiUnavailableException {
+    this(Channel.C1, launchpadReceiver);
   }
 
-  /**
-   * Verify if the asynchronous {@link Thread} to read is alive.
-   *
-   * @return True, if the asynchronous {@link Thread} to read is alive.
-   */
-  public boolean isAlive() {
-    return thread.isAlive();
+  public Launchpad(Channel channel, LaunchpadReceiver launchpadReceiver)
+      throws MidiUnavailableException {
+    this.channel = channel;
+    transmitter = MidiSystem.getTransmitter();
+    receiver = MidiSystem.getReceiver();
+    this.launchpadReceiver = launchpadReceiver;
+
+    transmitter.setReceiver(this);
   }
 
-  /**
-   * Verify if the asynchronous {@link Thread} to read is interrupted.
-   *
-   * @return True, if the asynchronous {@link Thread} to read is interrupted.
-   */
-  public boolean isInterrupted() {
-    return thread.isInterrupted();
+  public void set(final Pad pad, final Color color) throws InvalidMidiDataException {
+    receiver.send(new ShortMessage(pad.getCommand(), this.channel.channelForSystem(), pad.getCode(),
+        color.getCode()), -1);
   }
 
-  /**
-   * Adds a {@link LaunchpadHandler} to the {@link Launchpad} instance. The {@link LaunchpadHandler}
-   * is now notified whenever a event is sent from the Launchpad.
-   *
-   * @param handler The {@link LaunchpadHandler} to be informed of events from the Launchpad.
-   */
-  public void addHandler(final LaunchpadHandler handler) {
-    this.reader.addHandler(handler);
-  }
-
-  /**
-   * Send a {@link MidiCommand} to the Launchpad.
-   *
-   * @param command The {@link MidiCommand} to be sent to the Launchpad.
-   * @throws IOException Information on why a {@link MidiCommand} could not be sent.
-   */
-  public void send(final MidiCommand command) throws IOException {
-    device.writeByte(command.getCommandByte());
-    device.write(command.getData());
-  }
-
-  /**
-   * Switch a LED at a coordinates to off.
-   *
-   * @param x The x-coordinate of the LED to be switched off (0-16).
-   * @param y The y-coordinate of the LED to be switched off (0-16).
-   * @throws IOException Information on why a {@link MidiCommand} could not be sent.
-   */
-  public void off(final int x, final int y) throws IOException {
-    send(new MidiCommand.Builder(Command.NOTE_OFF, Channel.C1)
-        .setDataBytes(new byte[] {led(x, y), Color.OFF.getByte()}).toMidiCommand());
-  }
-
-  /**
-   * Switch a LED at a coordinates to a {@link Color}.
-   *
-   * @param x The x-coordinate of the LED to be switched off (0-16).
-   * @param y The y-coordinate of the LED to be switched off (0-16).
-   * @throws IOException Information on why a {@link MidiCommand} could not be sent.
-   */
-  public void set(final int x, final int y, final Color c) throws IOException {
-    send(new MidiCommand.Builder(Command.NOTE_ON, Channel.C1)
-        .setDataBytes(new byte[] {led(x, y), c.getByte()}).toMidiCommand());
-  }
-
-  private byte led(final int x, final int y) {
-    if (x < 0 || x > 16 || y < 0 || y > 16) {
-      throw new IllegalArgumentException("x and y may only be within 1-16");
+  @Override
+  public void send(MidiMessage message, long timeStamp) {
+    if (this.launchpadReceiver != null && message instanceof ShortMessage
+        && (((ShortMessage) message).getChannel() == this.channel.channelForSystem())
+        && (((ShortMessage) message).getCommand() == ShortMessage.NOTE_ON)
+        && (((ShortMessage) message).getData2() > 0)) {
+      this.launchpadReceiver.receive(Pad.findMidi(((ShortMessage) message).getData1()));
     }
-    return (byte) (0x10 * x + y);
+  }
+
+  @Override
+  public void close() {
+    this.receiver.close();
+    this.transmitter.close();
   }
 }
