@@ -96,7 +96,6 @@ public class Launchpad implements Receiver {
   /**
    * Please do not use this method. It's the internal implementation to receive midi commands.
    */
-  // TODO hide this method from standard usage.
   @Override
   public void send(MidiMessage message, long timeStamp) {
     if (this.launchpadReceiver != null && message instanceof ShortMessage
