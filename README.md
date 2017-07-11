@@ -16,9 +16,16 @@ You can directly use it from maven central:
 </dependency>
 ```
 
+To send colors the the launchpad, the methods `set(pad, color)`:
+
+```java
+launchpad.set(Pad.A4, Color.RED);
+launchpad.set(Pad.find(3, 1), Color.GREEN);
+```
+
 To retrieve messages, implement a
 [LaunchpadReceiver](https://github.com/rynr/launchpad/blob/master/src/main/java/org/rjung/util/launchpad/LaunchpadReceiver.java)
-and register it to the launchpad instance. The LaunchpadHandler will now be
+and register it to the launchpad instance. The LaunchpadReceiver will now be
 called always, when a Command is received.
 
 ```java
@@ -27,13 +34,6 @@ new Launchpad(new LaunchpadHandler() {
         System.out.println(command);
     }
 });
-```
-
-To send colors the the launchpad, the methods `set(pad, color)`:
-
-```java
-launchpad.set(Pad.A4, Color.RED);
-launchpad.set(Pad.find(3, 1), Color.GREEN);
 ```
 
 Example
