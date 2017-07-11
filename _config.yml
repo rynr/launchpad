@@ -1,0 +1,8 @@
+title: Launchpad
+description: Library to access a Novation Launchpad in a linux/unix environment
+google_analytics: 
+show_downloads: true
+theme: jekyll-theme-tactile
+
+gems:
+  - jekyll-mentions
