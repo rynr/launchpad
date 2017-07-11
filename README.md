@@ -36,7 +36,12 @@ launchpad.set(Pad.A4, Color.RED);
 launchpad.set(Pad.find(3, 1), Color.GREEN);
 ```
 
+Example
+-------
+
 [![This is what you could build](https://img.youtube.com/vi/9cYpqWWpjjY/0.jpg)](https://www.youtube.com/watch?v=9cYpqWWpjjY)
+
+There's also a rewritten version of the [Games of Life](https://en.wikipedia.org/wiki/Conway%27s_Game_of_Life) in the branch [life](https://github.com/rynr/launchpad/tree/life).
 
 Build it yourself
 -----------------
