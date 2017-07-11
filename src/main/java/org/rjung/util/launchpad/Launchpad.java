@@ -1,7 +1,5 @@
 package org.rjung.util.launchpad;
 
-import java.io.File;
-
 import javax.sound.midi.InvalidMidiDataException;
 import javax.sound.midi.MidiMessage;
 import javax.sound.midi.MidiSystem;
