@@ -1,8 +1,9 @@
 Launchpad
 =========
 
-This library can be used to access a [Novation Launchpad](http://uk.novationmusic.com/midi-controllers-digital-dj/launchpad)
-from a linux/unix machine.
+This library can be used to access a
+[Novation Launchpad](http://uk.novationmusic.com/midi-controllers-digital-dj/launchpad)
+from a java application.
 
 Usage
 -----
