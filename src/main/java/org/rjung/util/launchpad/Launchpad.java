@@ -98,11 +98,12 @@ public class Launchpad implements Receiver {
    */
   @Override
   public void send(MidiMessage message, long timeStamp) {
-    if (this.launchpadReceiver != null && message instanceof ShortMessage
-        && (((ShortMessage) message).getChannel() == this.channel.channelForSystem())
-        && (((ShortMessage) message).getCommand() == ShortMessage.NOTE_ON)
-        && (((ShortMessage) message).getData2() > 0)) {
-      this.launchpadReceiver.receive(Pad.findMidi(((ShortMessage) message).getData1()));
+    if (this.launchpadReceiver != null && message instanceof ShortMessage) {
+      ShortMessage sm = (ShortMessage) message;
+      Pad pad = Pad.findMidi(sm);
+      if (pad != null) {
+        this.launchpadReceiver.receive(pad);
+      }
     }
   }
 
