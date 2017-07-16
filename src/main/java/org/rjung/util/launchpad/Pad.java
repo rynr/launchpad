@@ -55,7 +55,9 @@ public enum Pad {
         .orElse(null);
   }
 
-  public static Pad findMidi(int midiByte) {
-    return find((midiByte & 0xf0) >> 4, midiByte & 0x0f);
+  static Pad findMidi(ShortMessage message) {
+    return Arrays.stream(values())
+        .filter(p -> p.command == message.getCommand() && p.getCode() == message.getData1())
+        .findFirst().orElse(null);
   }
 }

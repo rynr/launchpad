@@ -5,6 +5,7 @@ import static org.junit.Assert.assertThat;
 
 import java.util.Arrays;
 
+import javax.sound.midi.InvalidMidiDataException;
 import javax.sound.midi.ShortMessage;
 
 import org.junit.Test;
@@ -136,18 +137,9 @@ public class PadTest {
   }
 
   @Test
-  public void verifyFindByMidiCode() {
-    for (Pad pad : Arrays.asList( //
-        Pad.A1, Pad.A2, Pad.A3, Pad.A4, Pad.A5, Pad.A6, Pad.A7, Pad.A8, //
-        Pad.B1, Pad.B2, Pad.B3, Pad.B4, Pad.B5, Pad.B6, Pad.B7, Pad.B8, //
-        Pad.C1, Pad.C2, Pad.C3, Pad.C4, Pad.C5, Pad.C6, Pad.C7, Pad.C8, //
-        Pad.D1, Pad.D2, Pad.D3, Pad.D4, Pad.D5, Pad.D6, Pad.D7, Pad.D8, //
-        Pad.E1, Pad.E2, Pad.E3, Pad.E4, Pad.E5, Pad.E6, Pad.E7, Pad.E8, //
-        Pad.F1, Pad.F2, Pad.F3, Pad.F4, Pad.F5, Pad.F6, Pad.F7, Pad.F8, //
-        Pad.G1, Pad.G2, Pad.G3, Pad.G4, Pad.G5, Pad.G6, Pad.G7, Pad.G8, //
-        Pad.H1, Pad.H2, Pad.H3, Pad.H4, Pad.H5, Pad.H6, Pad.H7, Pad.H8, //
-        Pad.A, Pad.B, Pad.C, Pad.D, Pad.E, Pad.F, Pad.G, Pad.H)) {
-      assertThat(Pad.findMidi(pad.getCode()), is(pad));
+  public void verifyFindByMidiMessage() throws InvalidMidiDataException {
+    for (Pad pad : Pad.values()) {
+      assertThat(Pad.findMidi(new ShortMessage(pad.getCommand(), 0, pad.getCode(), 0)), is(pad));
     }
   }
 }
