@@ -1,6 +1,16 @@
 Changelog
 =========
 
+launchpad-1.1
+-------------
+
+ - Bugfix concerning detection of buttons 0-8 beeing pressed
+
+launchpad-1.0
+-------------
+
+ - Complete rewrite of the code using `javax.sound.midi`-package
+
 launchpad-0.4
 -------------
 
